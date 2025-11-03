@@ -387,9 +387,6 @@ class SparkSQLCompare(BaseCompare):
             {c: f"{c}_{self.df2_name}" for c in temp_join_columns}
         )
 
-        # cache
-        df1.cache()
-        df2.cache()
 
         # NULL SAFE Outer join using ON
         df1.createOrReplaceTempView("df1")
@@ -465,8 +462,6 @@ class SparkSQLCompare(BaseCompare):
         LOG.info(
             f"Number of rows in df1 and df2 (not necessarily equal): {self.intersect_rows.count()}"
         )
-        # cache
-        self.intersect_rows.cache()
 
     def _intersect_compare(self, ignore_spaces: bool, ignore_case: bool) -> None:
         """Run the comparison on the intersect dataframe.
